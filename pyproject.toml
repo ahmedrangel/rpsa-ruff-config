@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rpsa-ruff-config"
+version = "0.1.0"
+description = "RPSA Ruff configuration preset."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE.md"]
+requires-python = ">=3.10"
+authors = [{ name = "Ahmed Rangel", email = "ahmedrangel@gmail.com" }]
+keywords = ["ruff", "ruff-config", "linter", "formatter"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Typing :: Typed"
+]
+dependencies = ["ruff>=0.9,<1"]
+
+[project.urls]
+Homepage = "https://github.com/ahmedrangel/rpsa-ruff-config"
+Repository = "https://github.com/ahmedrangel/rpsa-ruff-config"
+
+[project.scripts]
+rpsa-ruff-config = "rpsa_ruff_config.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-cov>=5"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rpsa_ruff_config"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=rpsa_ruff_config --cov-report=term-missing"
+
+# This repository lints itself with the preset it ships.
+[tool.ruff]
+extend = "src/rpsa_ruff_config/ruff.toml"
+extend-exclude = ["tests/fixtures"]
